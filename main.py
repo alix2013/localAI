@@ -6,7 +6,7 @@ model = OllamaLLM(model="gemma3")
 
 template = """
 You are an expert in answering questions about a restaurant
-Here are some relevant information: {reviews}
+Here are some relevant information: {desc}
 Here is the question to answer: {question}
 """
 prompt = ChatPromptTemplate.from_template(template)
@@ -19,8 +19,10 @@ while True:
     if question == "q":
         break
     
-    reviews = retriever.invoke(question)
-    print(reviews)
-    result = chain.invoke({"reviews": reviews, "question": question})
+    docs = retriever.invoke(question)
+    print("Relevant Documents:")
+    print(docs)
+    print("-"*50)
+    result = chain.invoke({"desc": docs, "question": question})
     print(result)
 

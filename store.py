@@ -17,11 +17,12 @@ if add_documents:
     for i, row in df.iterrows():
         document = Document(
             page_content=row["Title"] + " " + row["Desc"],
-            metadata={"rating": row["Rating"], "date": row["Date"]},
+            metadata={"rating": row["Rating"], "date": row["Date"], "ext": "additional info"},
             id=str(i)
         )
         ids.append(str(i))
         documents.append(document)
+    print(documents[0])
         
 vector_store = Chroma(
     collection_name="product",
